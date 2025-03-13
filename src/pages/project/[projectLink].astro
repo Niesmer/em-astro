@@ -1,0 +1,19 @@
+---
+import type { GetStaticPaths } from "astro";
+import Layout from "../../layouts/Layout.astro";
+import { projects } from "../../data/projects";
+import ProjectTransition from "../../components/ProjectPage/ProjectTransition";
+
+export const getStaticPaths = (() => {
+  const paths = projects.map((project) => ({
+    params: {
+      projectLink: project.link,
+    },
+  }));
+  return paths;
+}) satisfies GetStaticPaths;
+---
+
+<Layout>
+<ProjectTransition client:load project={projects.find((project) => project.link === Astro.params.projectLink)} />
+</Layout>
