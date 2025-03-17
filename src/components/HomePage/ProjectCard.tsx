@@ -28,21 +28,25 @@ function ProjectCard({ width, height, title, link, description, image }: Project
         if (!element) return;
 
         const rect = element.getBoundingClientRect();
-        const scrollX = window.scrollX;
-        const scrollY = window.scrollY;
-        const absoluteX = rect.left + scrollX;
-        const absoluteY = rect.top + scrollY;
 
+        // Account for scroll position
+        const absoluteX = rect.left;
+        const absoluteY = rect.top;
+
+        // Clone the element
         const clone = element.cloneNode(true) as HTMLElement;
         document.body.appendChild(clone);
 
-        clone.style.position = "fixed";
+        // Set initial styles for the clone
+        clone.style.position = "fixed"; // Use fixed to keep it in the viewport
         clone.style.width = `${rect.width}px`;
         clone.style.height = `${rect.height}px`;
         clone.style.left = `${absoluteX}px`;
         clone.style.top = `${absoluteY}px`;
         clone.style.zIndex = "1000";
+        clone.style.pointerEvents = "none"; // Avoid interactions
 
+        // Animate the transition
         gsap.to(clone, {
             duration: 1,
             width: "100vw",
@@ -57,7 +61,7 @@ function ProjectCard({ width, height, title, link, description, image }: Project
                 navigate(element.href);
                 clone.addEventListener("astro:page-load", () => {
                     clone.parentNode?.removeChild(clone);
-                })
+                });
             },
         });
 
@@ -73,6 +77,7 @@ function ProjectCard({ width, height, title, link, description, image }: Project
             }
         };
     };
+
 
     return (
         <a
