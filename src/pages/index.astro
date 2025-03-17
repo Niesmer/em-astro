@@ -17,6 +17,13 @@ const pinterest = icon({ prefix: "fab", iconName: "pinterest" });
 ---
 
 <Layout>
+  <HomePageTransition 
+    client:load 
+    title="Sample Title" 
+    description="Sample Description" 
+    link="https://example.com" 
+    image="https://picsum.photos/200/300" 
+  />
   <div class="flex flex-col items-center">
     <img
       class="object-cover w-full max-h-56"
