@@ -61,7 +61,7 @@ const projectData: ProjectInterface[] = [
     image: "https://picsum.photos/1000/800?random=3",
   },
   {
-    width: 12,
+    width: 6,
     height: 6,
     title: "Project Four",
     description: "Description for project four.",
@@ -75,7 +75,7 @@ const projectData: ProjectInterface[] = [
     image: "https://picsum.photos/1000/800?random=5",
   },
   {
-    width: 8,
+    width: 6,
     height: 6,
     title: "Project Six",
     description: "Description for project six.",

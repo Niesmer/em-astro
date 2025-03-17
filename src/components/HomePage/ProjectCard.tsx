@@ -9,10 +9,11 @@ type ProjectCardProps = {
     description: string;
     link: string;
     image: string;
+    className?: string;
     onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 };
 
-function ProjectCard({ width, height, title, link, description, image }: ProjectCardProps) {
+function ProjectCard({ width, height, title, link, description, image,className }: ProjectCardProps) {
     const style = {
         gridColumn: `span ${width}`,
         gridRow: `span ${height}`,
@@ -22,7 +23,8 @@ function ProjectCard({ width, height, title, link, description, image }: Project
 
     const handleTransition = (event: React.MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault();
-        console.log("handleTransition triggered");
+
+        sessionStorage.setItem("playTransition", "true");
 
         const element = elementRef.current;
         if (!element) return;
@@ -83,7 +85,7 @@ function ProjectCard({ width, height, title, link, description, image }: Project
         <a
             href={`project/${link}`}
             style={style}
-            className="project-card relative w-full h-full border rounded-lg shadow-md overflow-hidden"
+            className={`project-card relative  rounded-lg overflow-hidden ${className}`}
             onClick={handleTransition}
             ref={elementRef}
         >

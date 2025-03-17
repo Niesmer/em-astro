@@ -15,5 +15,20 @@ export const getStaticPaths = (() => {
 ---
 
 <Layout>
-<ProjectTransition client:load project={projects.find((project) => project.link === Astro.params.projectLink)} />
+  <div class="grid grid-cols-[auto_1fr_1fr]">
+    <div class="">Titre de la page</div>
+    <div class="flex h-screen items-center justify-center">
+      <ProjectTransition
+        client:load
+        project={projects.find(
+          (project) => project.link === Astro.params.projectLink
+        )}
+      />
+    </div>
+    <div>
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore
+      similique, animi eum sit hic asperiores non labore porro error cum beatae
+      assumenda commodi autem, ex saepe delectus nesciunt quos sunt?
+    </div>
+  </div>
 </Layout>
