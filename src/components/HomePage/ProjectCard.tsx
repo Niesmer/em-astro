@@ -24,7 +24,7 @@ function ProjectCard({ width, height, title, link, description, image,className 
     const handleTransition = (event: React.MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault();
 
-        sessionStorage.setItem("playTransition", "true");
+        // sessionStorage.setItem("playTransition", "true");
 
         const element = elementRef.current;
         if (!element) return;
@@ -62,7 +62,6 @@ function ProjectCard({ width, height, title, link, description, image,className 
             onComplete: () => {
                 navigate(element.href);
                 clone.addEventListener("astro:page-load", () => {
-                    clone.parentNode?.removeChild(clone);
                 });
             },
         });

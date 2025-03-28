@@ -10,14 +10,24 @@ import "../styles/global.css";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>Astro Basics</title>
-    <ClientRouter transition:animate={"none"} />
+    <ClientRouter transition:animate={"fade"} />
   </head>
   <body>
     <slot />
-  </body>
-  
-  <script>
-    sessionStorage.setItem("customReferrer", window.location.pathname);
+  </body><script>
+    export let mobile = window.innerWidth < 768;
+    window.addEventListener("resize", () => {
+      mobile = window.innerWidth < 768;
+    });
+    function updateCustomReferrer() {
+      sessionStorage.setItem("customReferrer", window.location.pathname);
+    }
+
+    // Update on initial load
+    updateCustomReferrer();
+
+    // Update on back/forward navigation
+    window.addEventListener("popstate", updateCustomReferrer);
   </script>
 </html>
 
