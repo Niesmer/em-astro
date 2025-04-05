@@ -1,0 +1,30 @@
+---
+import { ui } from "../../i18n/ui";
+import { getLangFromUrl, useTranslatedPath } from "../../i18n/utils";
+
+const currentLang = getLangFromUrl(new URL(window.location.href));
+const translatePath = useTranslatedPath(currentLang);
+
+const languages = Object.keys(ui);
+---
+
+<button id="langChanger">
+  {currentLang === "en" ? "fr" : "en"}
+</button>
+
+<script>
+  import { getLangFromUrl, useTranslatedPath } from "../../i18n/utils";
+
+  const currentLang = getLangFromUrl(new URL(window.location.href));
+  const translatePath = useTranslatedPath(currentLang);
+
+  document
+    .getElementById("langChanger")
+    ?.addEventListener("mousedown", handleLanguageChange);
+
+  function handleLanguageChange() {
+    const newLang = currentLang === "en" ? "fr" : "en";
+    const newPath = translatePath(window.location.pathname, newLang);
+    window.location.href = newPath;
+  }
+</script>

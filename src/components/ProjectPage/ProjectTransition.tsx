@@ -46,7 +46,7 @@ function ProjectTransition({ project }: ProjectTransitionProps) {
     valid && (
       <img
         ref={ref}
-        src={project?.image}
+        src={project?.miniature}
         className="w-screen h-screen z-10 fixed top-0 left-0 object-cover"
         alt={project?.title}
       />

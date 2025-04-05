@@ -21,12 +21,14 @@ export interface ProjectInterface {
   /**
    * A URL link to the project.
    */
-  link?
-  : string;
+  link?: string;
   /**
-   * The image of the project.
+   *
+   * images: [
+   * "https://picsum.photos/1000/800?random=10"] The ,miniature of the project.
    */
-  image: string;
+  miniature: string;
+  images: string[];
 }
 
 /**
@@ -35,7 +37,7 @@ export interface ProjectInterface {
  * @returns The generated link.
  */
 function generateLink(title: string): string {
-  return `${title.toLowerCase().replace(/\s+/g, '-')}`;
+  return `${title.toLowerCase().replace(/\s+/g, "-")}`;
 }
 
 const projectData: ProjectInterface[] = [
@@ -44,46 +46,58 @@ const projectData: ProjectInterface[] = [
     height: 6,
     title: "Project One",
     description: "Description for project one.",
-    image: "https://picsum.photos/1000/800?random=1",
+    images: ["https://picsum.photos/1000/800?random=10"],
+    miniature: "https://picsum.photos/1000/800?random=1",
   },
   {
     width: 8,
     height: 12,
     title: "Project Two",
     description: "Description for project two.",
-    image: "https://picsum.photos/1000/800?random=2",
+    images: ["https://picsum.photos/1000/800?random=10"],
+    miniature: "https://picsum.photos/1000/800?random=2",
   },
   {
     width: 4,
     height: 6,
     title: "Project Three",
     description: "Description for project three.",
-    image: "https://picsum.photos/1000/800?random=3",
+    images: ["https://picsum.photos/1000/800?random=10"],
+    miniature: "https://picsum.photos/1000/800?random=3",
   },
   {
     width: 6,
     height: 6,
     title: "Project Four",
     description: "Description for project four.",
-    image: "https://picsum.photos/1000/800?random=4",
+    images: ["https://picsum.photos/1000/800?random=10"],
+    miniature: "https://picsum.photos/1000/800?random=4",
   },
   {
     width: 6,
     height: 12,
     title: "Project Five",
     description: "Description for project five.",
-    image: "https://picsum.photos/1000/800?random=5",
+    images: [
+      "https://picsum.photos/1000/800?random=10",
+      "https://picsum.photos/1000/800?random=9",
+      "https://picsum.photos/1000/800?random=8",
+      "https://picsum.photos/1000/800?random=7",
+      "https://picsum.photos/1000/800?random=6",
+    ],
+    miniature: "https://picsum.photos/1000/800?random=5",
   },
   {
     width: 6,
     height: 6,
     title: "Project Six",
     description: "Description for project six.",
-    image: "https://picsum.photos/1000/800?random=6",
+    images: ["https://picsum.photos/1000/800?random=10"],
+    miniature: "https://picsum.photos/1000/800?random=6",
   },
 ];
 
-export const projects: ProjectInterface[] = projectData.map(project => ({
+export const projects: ProjectInterface[] = projectData.map((project) => ({
   ...project,
   link: generateLink(project.title),
 }));

@@ -3,6 +3,7 @@ import type { GetStaticPaths } from "astro";
 import Layout from "../../layouts/Layout.astro";
 import { projects } from "../../data/projects";
 import ProjectTransition from "../../components/ProjectPage/ProjectTransition";
+import CustomFlicking from "../../components/ProjectPage/CustomFlicking.vue";
 
 export const getStaticPaths = (() => {
   const paths = projects.map((project) => ({
@@ -20,41 +21,31 @@ const project = projects.find(
 
 <Layout>
   <ProjectTransition client:load project={project} />
+
   <div class="grid grid-cols-1 lg:grid-cols-[auto_1fr_0.8fr]">
     <div
       class="sticky top-0 h-fit bg-white/90 text-center py-4 lg:pl-6 lg:text-2xl"
     >
       Titre de la page
     </div>
-    <div
-      id="images"
-      class="grid gap-20 p-4 max-h-96 items-center justify-center lg:max-h-fit"
-    >
+    <div id="imgContainer" class="flex overflow-scroll no-scrollbar">
       {
-        Array.from({ length: 4 }).map((_, index) => (
-          <div>
+        project?.images.map((src, i) => (
+          <div class="w-80 shrink-0 select-none mx-4">
             <img
-              id={index == 0 ? "projectImage" : ""}
-              class="h-full lg:h-auto"
-              src={`https://picsum.photos/400/300?random=${index}`}
-              alt={`Random image ${index + 1}`}
+              class="h-full w-full"
+              draggable="false"
+              id={i == 0 ? "projectImage" : ""}
+              src={src}
+              alt={src}
             />
           </div>
         ))
       }
     </div>
-    <div id="text" class="p-4 h-fit">
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore
-      similique, animi eum sit hic asperiores non labore porro error cum beatae
-      assumenda commodi autem, ex saepe delectus nesciunt quos sunt? Lorem ipsum
-      dolor sit amet consectetur adipisicing elit. At, perspiciatis, facere nam
-      sunt quisquam recusandae laborum in tempora sequi neque, minus rem
-      provident dolor ab voluptates accusantium. Numquam, magnam explicabo.
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero maiores
-      cumque odio numquam et similique porro consequuntur quas laudantium iure,
-      explicabo totam laboriosam? Voluptatem numquam placeat porro iusto
-      repellendus libero. Lorem ipsum dolor sit amet consectetur adipisicing
-      elit. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore
+
+    <div class="p-4 sticky top-0 h-fit">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
       similique, animi eum sit hic asperiores non labore porro error cum beatae
       assumenda commodi autem, ex saepe delectus nesciunt quos sunt? Lorem ipsum
       dolor sit amet consectetur adipisicing elit. At, perspiciatis, facere nam
@@ -67,10 +58,24 @@ const project = projects.find(
       elit.
     </div>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const imageContainer = document.getElementById("imgContainer");
+      if (imageContainer) {
+        const imageElements = [...imageContainer.children];
+        const halfLength = Math.floor(imageElements.length / 2);
+
+        // Append the first half of the elements to the container
+        imageElements.slice(0, halfLength).forEach((el) => {
+          imageContainer.appendChild(el.cloneNode(true));
+        });
+
+        // Log the second half of the elements
+        imageElements.slice(halfLength).forEach((el) => {
+          imageContainer.prepend(el.cloneNode(true));
+        });
+      }
+    });
+  </script>
 </Layout>
-
-<script>
-  gsap.registerPlugin(ScrollTrigger);
-
-  let tl = gsap.timeline({});
-</script>

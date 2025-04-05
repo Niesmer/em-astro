@@ -24,7 +24,7 @@ function ProjectBento({ projects, className }: ProjectsProps) {
   return (
     <div
       className={`relative grid ${
-        mobile ? "grid-flow-row " : "grid-cols-12 grid-rows-12"
+        mobile ? "grid-flow-row " : "grid-cols-[repeat(12,1fr)]"
       } pb-18 gap-4 ${className}`}
     >
       {projects.map((project, i) => (
@@ -36,7 +36,7 @@ function ProjectBento({ projects, className }: ProjectsProps) {
           title={project.title}
           description={project.description}
           link={project.link || "#"}
-          image={project.image}
+          image={project.miniature}
         />
       ))}
     </div>
